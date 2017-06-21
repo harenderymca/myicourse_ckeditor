@@ -11,10 +11,15 @@ class Ckeditor::ApplicationController < Ckeditor.parent_controller.constantize
     
     asset_response = Ckeditor::AssetResponse.new(asset, request)
     @attachment.assetable_type = college.name unless college.blank?
-    if asset.save
+    @attachment.assetable_id = session[:course_in_use]
+    begin
+      if asset.save
+        render asset_response.success(config.relative_url_root)
+      else
+        render asset_response.errors
+      end
+    rescue
       render asset_response.success(config.relative_url_root)
-    else
-      render asset_response.errors
     end
   end
 end
