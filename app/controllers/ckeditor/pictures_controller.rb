@@ -11,8 +11,8 @@ class Ckeditor::PicturesController < Ckeditor::ApplicationController
   end
 
   def create
-    @picture = Ckeditor.picture_model.new
-    respond_with_asset(@picture)
+    @attachment = Ckeditor.picture_model.new
+    respond_with_asset(@attachment,@college)
   end
 
   def destroy
